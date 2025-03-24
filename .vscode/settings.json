@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"minitalk.h": "c",
+		"signal.h": "c",
+		"libft.h": "c",
+		"ft_printf.h": "c"
+	}
+}
