@@ -6,13 +6,13 @@
 /*   By: mourhouc <mourhouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 22:41:21 by mourhouc          #+#    #+#             */
-/*   Updated: 2025/03/24 18:20:35 by mourhouc         ###   ########.fr       */
+/*   Updated: 2025/03/25 11:54:11 by mourhouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minitalk.h"
 
-int		g_synch_bit;
+int		g_server_ready;
 
 void	encrypt_message(unsigned char letter, int pid)
 {
@@ -27,7 +27,7 @@ void	encrypt_message(unsigned char letter, int pid)
 			ft_printf("\033[31mInvalid or null PID!\033[0m");
 			exit(EXIT_FAILURE);
 		}
-		g_synch_bit = 0;
+		g_server_ready = 0;
 		bit = letter & 128;
 		letter <<= 1;
 		i++;
@@ -35,7 +35,7 @@ void	encrypt_message(unsigned char letter, int pid)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		while (g_synch_bit != 1)
+		while (g_server_ready != 1)
 			usleep(10);
 	}
 }
@@ -58,7 +58,7 @@ void	check_status(int signum)
 	if (signum == SIGUSR2)
 		exit(EXIT_SUCCESS);
 	else if (signum == SIGUSR1)
-		g_synch_bit = 1;
+		g_server_ready = 1;
 }
 
 int	main(int argc, char **argv)

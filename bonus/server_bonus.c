@@ -6,43 +6,53 @@
 /*   By: mourhouc <mourhouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 18:21:00 by mourhouc          #+#    #+#             */
-/*   Updated: 2025/03/24 18:21:07 by mourhouc         ###   ########.fr       */
+/*   Updated: 2025/03/26 12:13:57 by mourhouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minitalk_bonus.h"
+
+int		g_pid = 0;
 
 void	decrypt_message(int bit, int pid)
 {
 	static int	byte = 0;
 	static int	byte_size = 1;
 
-	byte <<= 1;
-	byte += bit;
-	if (byte_size == 8)
+	if (g_pid != pid)
 	{
-		if (byte == '\0')
-		{
-			kill(pid, SIGUSR2);
-			ft_printf("\n");
-		}
-		else
-			ft_printf("%c", byte);
-		byte = 0;
+		g_pid = pid;
 		byte_size = 1;
 	}
-	else
-		byte_size++;
-	kill(pid, SIGUSR1);
+	byte <<= 1;
+	byte += bit;
+	if (g_pid == pid)
+	{
+		if (byte_size == 8)
+		{
+			if (byte == '\0')
+				kill(pid, SIGUSR2);
+			else
+				ft_printf("%c", byte);
+			byte = 0;
+			byte_size = 1;
+		}
+		else
+			byte_size++;
+		kill(pid, SIGUSR1);
+	}
 }
 
 void	signal_handler(int signum, siginfo_t *info, void *context)
 {
+	int	pid;
+
 	(void)context;
+	pid = info->si_pid;
 	if (signum == SIGUSR1)
-		decrypt_message(1, info->si_pid);
+		decrypt_message(1, pid);
 	else if (signum == SIGUSR2)
-		decrypt_message(0, info->si_pid);
+		decrypt_message(0, pid);
 }
 
 int	main(void)

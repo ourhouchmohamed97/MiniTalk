@@ -6,7 +6,7 @@
 /*   By: mourhouc <mourhouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 14:26:44 by mourhouc          #+#    #+#             */
-/*   Updated: 2025/03/24 19:21:13 by mourhouc         ###   ########.fr       */
+/*   Updated: 2025/03/26 13:42:47 by mourhouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	check_status(int signum)
 {
 	if (signum == SIGUSR2)
 	{
-		ft_printf("\033[32mAll data received. Transmission complete!\033[0m\n");
+		ft_printf("\033[32mAll data successfully sent to server!. ");
+		ft_printf("Mission complete!\033[0m\n");
 		exit(EXIT_SUCCESS);
 	}
 	else if (signum == SIGUSR1)
