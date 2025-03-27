@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-vid	ft_putaddr(void *ptr, int *counter)
+void	ft_putaddr(void *ptr, int *counter)
 {
 	unsigned long	addr;
 	char			*hexa;
