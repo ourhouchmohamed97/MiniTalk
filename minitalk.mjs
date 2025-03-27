@@ -1,8 +1,6 @@
 import figlet from 'figlet';
 import chalk from 'chalk';
-
 console.clear();
-
 figlet.text('MiniTalk', { font: 'Big' }, function (err, data) {
     if (err) {
         console.log('Something went wrong...');

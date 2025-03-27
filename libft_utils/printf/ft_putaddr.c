@@ -6,13 +6,13 @@
 /*   By: mourhouc <mourhouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 15:16:59 by mourhouc          #+#    #+#             */
-/*   Updated: 2025/03/20 14:18:58 by mourhouc         ###   ########.fr       */
+/*   Updated: 2025/03/27 13:18:49 by mourhouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putaddr(void *ptr, int *counter)
+vid	ft_putaddr(void *ptr, int *counter)
 {
 	unsigned long	addr;
 	char			*hexa;
